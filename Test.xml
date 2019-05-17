@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<university>
+
+    <student>
+        <name>Test</name>
+        <surname>Test</surname>
+        <secondname>Test</secondname>
+        <group>111111</group> 
+    </student>
+
+      <student>
+        <name>Test</name>
+        <surname>Test</surname>
+        <secondname>Test</secondname>
+        <group>111111</group> 
+    </student>
+
+    <student>
+        <name>Test</name>
+        <surname>Test</surname>
+        <secondname>Test</secondname>
+        <group>111111</group> 
+    </student>
+
+    <student>
+        <name>Test</name>
+        <surname>Test</surname>
+        <secondname>Test</secondname>
+        <group>111111</group> 
+    </student>
+    
+</university>
