@@ -11,7 +11,7 @@ public class Student {
     private int total;
     
 
-    public Student(String name, String surname, String secondName, String group) {
+    public Student(String name, String surname, String secondName, String group, int ill, int other, int without, int total) {
         this.name = name;
         this.surname = surname;
         this.secondName = secondName;

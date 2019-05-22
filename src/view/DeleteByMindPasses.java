@@ -10,15 +10,15 @@ import org.eclipse.swt.widgets.*;
 import controller.*;
 import model.Student;
 
-public class DeleteByMindPass {
-	public DeleteByMindPass(Display display, Controller controller, RowsInPage rowsInPage, Composite composite) {
+public class DeleteByMindPasses {
+	public DeleteByMindPasses(Display display, Controller controller, RowsInPage rowsInPage, Composite composite) {
 		Shell shell = new Shell(display, SWT.MAX | SWT.TITLE | SWT.CLOSE | SWT.SHELL_TRIM);
 		shell.setBounds(500, 250, 300, 210);
 		shell.open();
 		
 		Label labelMain = new Label (shell, SWT.NONE);
-		labelMain.setText("DELETE ROW(S)");
-		labelMain.setBounds(90, 15, 250, 20);
+		labelMain.setText("↓CHOOSE ONE OF THE WAYS!↓");
+		labelMain.setBounds(45, 15, 250, 20);
 		
 		Label labelSurname = new Label (shell, SWT.NONE);
 		labelSurname.setText("Surname:");
@@ -33,7 +33,7 @@ public class DeleteByMindPass {
 		
 		Combo combo = new Combo(shell, SWT.DROP_DOWN | SWT.READ_ONLY);
 		combo.setBounds(100, 85, 180, 23);
-		String[] items = new String[] { "Due to illness", "For other reasons", "Without good reason" };
+		String[] items = new String[] { "Due to illness", "For other reasons", "Without good reason", "Total" };
 		combo.setItems(items);
 		
 		Button deleteButton = new Button (shell, SWT.PUSH);
@@ -42,7 +42,23 @@ public class DeleteByMindPass {
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent arg0) {
-				
+				String surnameFind = textSurname.getText();
+				List<Student> find = controller.findByMindPasses(combo.getSelectionIndex(), surnameFind);
+				if (find.isEmpty()) {
+					MessageBox messageError = new MessageBox(shell, SWT.ICON_ERROR);
+					messageError.setText("ERROR!");
+					messageError.setMessage("No match found");
+					messageError.open();
+				} else {
+					int i = controller.deleteRows(find);
+					MessageBox messageError = new MessageBox(shell, SWT.OK);
+					messageError.setText("Done!");
+					messageError.setMessage(i + " row(s) was(were) delete!");
+					messageError.open();
+					rowsInPage.refresh(composite);
+					rowsInPage.createTable(composite, controller.getStudents());
+				}
+				textSurname.setText("");
 			}
 		});
 	}

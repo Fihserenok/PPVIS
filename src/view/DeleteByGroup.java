@@ -17,8 +17,8 @@ public class DeleteByGroup {
 		shell.open();
 		
 		Label labelMain = new Label (shell, SWT.NONE);
-		labelMain.setText("DELETE ROW(S)");
-		labelMain.setBounds(90, 15, 250, 20);
+		labelMain.setText("↓CHOOSE ONE OF THE WAYS!↓");
+		labelMain.setBounds(45, 15, 250, 20);
 		
 		Label labelSurname = new Label (shell, SWT.NONE);
 		labelSurname.setText("Surname:");
@@ -40,7 +40,25 @@ public class DeleteByGroup {
 		deleteButton.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent arg0) {
-				
+				String surnameFind = textSurname.getText();
+				String groupFind = textGroup.getText();
+				List<Student> find = controller.findByGroup(groupFind, surnameFind);
+				if (find.size() == 0) {
+					MessageBox messageError = new MessageBox(shell, SWT.ICON_ERROR);
+					messageError.setText("Error!");
+					messageError.setMessage("Row(s) not found!");
+					messageError.open();
+				} else {
+					int i = controller.deleteRows(find);
+					MessageBox messageError = new MessageBox(shell, SWT.OK);
+					messageError.setText("Done!");
+					messageError.setMessage(i + " row(s) was(were) delete!");
+					messageError.open();
+					rowsInPage.refresh(composite);
+					rowsInPage.createTable(composite, controller.getStudents());
+				}
+				textSurname.setText("");
+				textGroup.setText("");
 			}
 		});
 	}

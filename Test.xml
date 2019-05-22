@@ -4,29 +4,11 @@
     <student>
         <name>Test</name>
         <surname>Test</surname>
-        <secondname>Test</secondname>
+        <secondName>Test</secondName>
         <group>111111</group> 
-    </student>
-
-      <student>
-        <name>Test</name>
-        <surname>Test</surname>
-        <secondname>Test</secondname>
-        <group>111111</group> 
-    </student>
-
-    <student>
-        <name>Test</name>
-        <surname>Test</surname>
-        <secondname>Test</secondname>
-        <group>111111</group> 
-    </student>
-
-    <student>
-        <name>Test</name>
-        <surname>Test</surname>
-        <secondname>Test</secondname>
-        <group>111111</group> 
+        <ill>1</ill>
+        <other>1</other>  
+        <without>1</without> 
     </student>
     
 </university>

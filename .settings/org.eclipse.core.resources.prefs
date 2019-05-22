@@ -1,0 +1,5 @@
+eclipse.preferences.version=1
+encoding//src/view/DeleteByGroup.java=UTF-8
+encoding//src/view/DeleteByMindPasses.java=UTF-8
+encoding//src/view/DeleteByNumberOfPasses.java=UTF-8
+encoding//src/view/FindByNumberOfPasses.java=UTF-8

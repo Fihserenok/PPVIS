@@ -17,6 +17,7 @@ public class FindByNumberOfPasses {
 	public FindByNumberOfPasses(Display display, Controller controller) {
 		Shell shell = new Shell(display, SWT.MAX | SWT.TITLE | SWT.CLOSE | SWT.SHELL_TRIM);
 		shell.setBounds(150, 100, 815, 600);
+		shell.setText("     ↓CHOOSE ONE OF THE WAYS!↓");
 		shell.open();
 		
 		Label labelSurname = new Label (shell, SWT.NONE);
@@ -32,22 +33,22 @@ public class FindByNumberOfPasses {
 		
 		Combo combo = new Combo(shell, SWT.DROP_DOWN | SWT.READ_ONLY);
 		combo.setBounds(280, 10, 180, 25);
-		String[] items = new String[] { "Due to illness", "For other reasons", "Without good reason" };
+		String[] items = new String[] { "Due to illness", "For other reasons", "Without good reason", "Total"};
 		combo.setItems(items);
 		
-		Label labelLowerGrade = new Label (shell, SWT.NONE);
-		labelLowerGrade.setText("Lower limit:");
-		labelLowerGrade.setBounds(470, 15, 80, 20);
+		Label labelMin = new Label (shell, SWT.NONE);
+		labelMin.setText("Min limit:");
+		labelMin.setBounds(480, 15, 70, 20);
 
-		Text textLowerGrade = new Text (shell, SWT.BORDER);
-		textLowerGrade.setBounds(550, 12, 30, 25);
+		Text textMin = new Text (shell, SWT.BORDER);
+		textMin.setBounds(550, 12, 30, 25);
 
-		Label labelUpperGrade = new Label (shell, SWT.NONE);
-		labelUpperGrade.setText("Upper limit:");
-		labelUpperGrade.setBounds(600, 15, 80, 20);
+		Label labelMax = new Label (shell, SWT.NONE);
+		labelMax.setText("Max limit:");
+		labelMax.setBounds(610, 15, 70, 20);
 
-		Text textUpperGrade = new Text (shell, SWT.BORDER);
-		textUpperGrade.setBounds(680, 12, 30, 25);
+		Text textMax = new Text (shell, SWT.BORDER);
+		textMax.setBounds(680, 12, 30, 25);
 		
 		Button findButton = new Button (shell, SWT.PUSH);
 		findButton.setText("Find");
@@ -55,6 +56,27 @@ public class FindByNumberOfPasses {
 		findButton.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent arg0) {
+				String surnameFind = textSurname.getText();
+				int min = Integer.parseInt(textMin.getText());
+				int max = Integer.parseInt(textMax.getText());
+				List<Student> find = controller.findByNumberOfPasses(combo.getSelectionIndex(), surnameFind, min, max);
+				if (find.isEmpty()) {
+					MessageBox messageError = new MessageBox(shell, SWT.ICON_ERROR);
+					messageError.setText("Error!");
+					messageError.setMessage("Row(s) not found!");
+					messageError.open();
+				} else {
+					if (rowsInPage == null) {
+						rowsInPage = new RowsInPage();
+						rowsInPage.createTable(shell, find);
+					} else {
+						rowsInPage.refresh(shell);
+						rowsInPage.createTable(shell, find);
+					}
+				}
+				textSurname.setText("");
+				textMax.setText("");
+				textMin.setText("");
 			}
 		});
 	}

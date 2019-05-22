@@ -9,8 +9,6 @@ import controller.Controller;
 
 public class AddWindow {
 	
-	//String stringOfExams;
-	//String stringOfGrades;
 	boolean firstIteration = true;
 	
 	public AddWindow(Display display, Controller controller, RowsInPage rowsInPage, Composite composite) {
@@ -50,19 +48,19 @@ public class AddWindow {
 		Text textGroup = new Text (shell, SWT.BORDER);
 		textGroup.setBounds(110, 135, 100, 24);
 		
-		Label labelExams = new Label (shell, SWT.NONE);
-		labelExams.setText("Due to illness:");
-		labelExams.setBounds(10, 167, 130, 20);
+		Label labelIll = new Label (shell, SWT.NONE);
+		labelIll.setText("Due to illness:");
+		labelIll.setBounds(10, 167, 130, 20);
 		
-		Text textExams = new Text (shell, SWT.BORDER);
-		textExams.setBounds(170, 165, 40, 24);
+		Text textIll = new Text (shell, SWT.BORDER);
+		textIll.setBounds(170, 165, 40, 24);
 		
-		Label labelGrades = new Label (shell, SWT.NONE);
-		labelGrades.setText("For other reasons:");
-		labelGrades.setBounds(10, 197, 130, 20);
+		Label labelOther = new Label (shell, SWT.NONE);
+		labelOther.setText("For other reasons:");
+		labelOther.setBounds(10, 197, 130, 20);
 		
-		Text textGrades = new Text (shell, SWT.BORDER);
-		textGrades.setBounds(170, 195, 40, 24);
+		Text textOther = new Text (shell, SWT.BORDER);
+		textOther.setBounds(170, 195, 40, 24);
 		
 		Label labelWithout = new Label (shell, SWT.NONE);
 		labelWithout.setText("Without good reason:");
@@ -70,17 +68,10 @@ public class AddWindow {
 		
 		Text textWithout = new Text (shell, SWT.BORDER);
 		textWithout.setBounds(170, 225, 40, 24);
-
-		Label labelTotal = new Label (shell, SWT.NONE);
-		labelTotal.setText("Total:");
-		labelTotal.setBounds(10, 257, 130, 20);
-		
-		Text textTotal = new Text (shell, SWT.BORDER);
-		textTotal.setBounds(170, 255, 40, 24);
 		
 		Button addButton = new Button (shell, SWT.PUSH);
 		addButton.setText("Add information");
-		addButton.setBounds(100, 295, 120, 30);
+		addButton.setBounds(100, 275, 120, 30);
 		addButton.addSelectionListener(new SelectionAdapter() {
 
 			public void widgetSelected(SelectionEvent arg0) {
@@ -88,7 +79,11 @@ public class AddWindow {
 				String surnameToAdd = textSurname.getText();
 				String secondNameToAdd = textSecondName.getText();
 				String groupToAdd = textGroup.getText();
-				controller.addStudent(nameToAdd, surnameToAdd, secondNameToAdd, groupToAdd);
+				int illToAdd = Integer.valueOf(textIll.getText());
+				int otherToAdd = Integer.valueOf(textOther.getText());
+				int withoutToAdd = Integer.valueOf(textWithout.getText());
+				int totalToAdd = Integer.valueOf(textWithout.getText());
+				controller.addStudent(nameToAdd, surnameToAdd, secondNameToAdd, groupToAdd, illToAdd, otherToAdd, withoutToAdd, totalToAdd);
 				
 				rowsInPage.refresh(composite);
 				rowsInPage.createTable(composite, controller.getStudents());
@@ -97,6 +92,9 @@ public class AddWindow {
 				textSurname.setText("");
 				textSecondName.setText("");
 				textGroup.setText("");
+				textIll.setText("");
+				textOther.setText("");
+				textWithout.setText("");
 				firstIteration = true;
 			}
 		});

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<university>
+    <student>
+        <name>1</name>
+        <surname>2</surname>
+        <secondName>3</secondName>
+        <group>4</group>
+        <ill>5</ill>
+        <other>6</other>
+        <without>7</without>
+    </student>
+</university>

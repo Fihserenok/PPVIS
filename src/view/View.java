@@ -87,7 +87,7 @@ public class View {
 		subItemFindByDiscipline.addListener (SWT.Selection, new Listener () {
 		    @Override
 		    public void handleEvent (Event e) {
-				new FindByMindPass(display, controller);
+				new FindByMindPasses(display, controller);
 		    }
 		});
 		
@@ -105,7 +105,7 @@ public class View {
 		subItemDeleteByAverageGrade.addListener (SWT.Selection, new Listener () {
 		    @Override
 		    public void handleEvent (Event e) {
-				new DeleteByMindPass(display, controller, rowsInPage, shell);
+				new DeleteByMindPasses(display, controller, rowsInPage, shell);
 		    }
 		});
 
@@ -197,7 +197,7 @@ public class View {
 		findByMindPass.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				new FindByMindPass(display, controller);
+				new FindByMindPasses(display, controller);
 			}
 		});
 		
@@ -230,7 +230,7 @@ public class View {
 		deleteByMindPass.addSelectionListener(new SelectionAdapter() {
 			@Override
 			public void widgetSelected(SelectionEvent arg0) {
-				new DeleteByMindPass(display, controller, rowsInPage, shell);
+				new DeleteByMindPasses(display, controller, rowsInPage, shell);
 			}
 		});
 		

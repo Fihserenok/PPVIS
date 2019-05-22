@@ -4,8 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
 import javax.xml.parsers.ParserConfigurationException;
 import javax.xml.transform.TransformerException;
@@ -31,64 +29,68 @@ public class Controller {
 		parser.write(fileSave, list.getStudents());
 	}
 	
-	public void addStudent(String nameToAdd, String surnameToAdd, String secondNameToAdd, String groupToAdd) {
+	public void addStudent(String nameToAdd, String surnameToAdd, String secondNameToAdd, String groupToAdd, int illToAdd, int otherToAdd, int withoutToAdd, int totalToAdd) {
 		List<Student> addedStudent = list.getStudents();
-		addedStudent.add(new Student(nameToAdd, surnameToAdd, secondNameToAdd, groupToAdd));
+		addedStudent.add(new Student(nameToAdd, surnameToAdd, secondNameToAdd, groupToAdd, illToAdd, otherToAdd, withoutToAdd, totalToAdd));
 		list.setStudents(addedStudent);
 	}
 	
-//	public void calculateAverageGrade() {
-//		double averageGrade = 0;
-// 	    for (Student student : list.getStudents()) {
-// 	    	for (int value : student.getExams().values()) {
-// 	    		averageGrade = value + averageGrade;
-// 	    	}
-// 	    averageGrade = averageGrade / student.getExams().size();
-// 	    student.setAverageGrade(averageGrade);
-// 	    averageGrade = 0;
-// 	    }
-//	}
-	
-//	public List<Student> findByAverageGrade(int lowerGrade, int upperGrade, String surnameToSearch) {
-//		ArrayList<Student> studentToFind = new ArrayList<>();
-//		for (Student student : list.getStudents()) {
-//			if (student.getAverageGrade() >= lowerGrade && student.getAverageGrade() <= upperGrade && surnameToSearch.equals(student.getSurname())) {
-//				studentToFind.add(student);	
-//			}
-//		}
-//		return studentToFind;
-//	}
-	
-	public List<Student> findByNumberOfGroup(String groupToSearch, String surnameToSearch) {
-		ArrayList<Student> studentToFind = new ArrayList<>();
+	public List<Student> findByGroup(String groupFind, String surnameFind) {
+		ArrayList<Student> findStudent = new ArrayList<>();
 		for (Student student : list.getStudents()) {
-			if (groupToSearch.equals(student.getGroup()) && surnameToSearch.equals(student.getSurname())) {
-				studentToFind.add(student);	
-			}
+			if (groupFind.equals(student.getGroup())) {
+				findStudent.add(student);	
+			} else if(surnameFind.equals(student.getSurname())) {
+				findStudent.add(student);
+			  }
 		}
-		return studentToFind;
+		return findStudent;
 	}
 	
-//	public List<Student> findByGradeByDiscipline(String examToSearch, String surnameToSearch, int lowerGrade, int upperGrade) {
-//		ArrayList<Student> studentToFind = new ArrayList<>();
-//		for (Student student : list.getStudents()) {
-//			for (Map.Entry<String, Integer> pair : student.getExams().entrySet()) {
-//				if (examToSearch.equals(pair.getKey()) &&  pair.getValue() >=  lowerGrade && pair.getValue() <= upperGrade && surnameToSearch.equals(student.getSurname())) {
-//					studentToFind.add(student);	
-//				}
-//			}
-//		}
-//		return studentToFind;
-//	}
-	
-	public int removeStudent(List<Student> studentToRemove) {
-		List<Student> removeStudent = list.getStudents();
-		int size = removeStudent.size();
-		for (Student student : studentToRemove) {
-			removeStudent.remove(student);
+	public int deleteRows(List<Student> removeStudent) {
+		List<Student> deleteRows = list.getStudents();
+		int size = deleteRows.size();
+		for (Student student : removeStudent) {
+			deleteRows.remove(student);
 		}
-		list.setStudents(removeStudent);
-		return size - removeStudent.size();
+		list.setStudents(deleteRows);
+		return size - deleteRows.size();
+	}
+	
+	public List<Student> findByMindPasses(int passType, String surnameFind) {
+		ArrayList<Student> findPasses = new ArrayList<>();
+		for (Student student : list.getStudents()) {
+			if (surnameFind.equals(student.getSurname())) {
+				findPasses.add(student);
+			} else if (passType == 0 && (student.getIll() > 0)) {
+				findPasses.add(student);
+			} else if (passType == 1 && (student.getOther() > 0)) {
+				findPasses.add(student);
+			} else if (passType == 2 && (student.getWithout() > 0)) {
+				findPasses.add(student);
+			} else if (passType == 3 && (student.getTotal() > 0)) {
+				findPasses.add(student);
+			}
+		}
+		return findPasses;
+	}
+	
+	public List<Student> findByNumberOfPasses(int passType, String surnameFind, int min, int max) {
+		ArrayList<Student> findQuantityPasses = new ArrayList<>();
+		for (Student student : list.getStudents()) {
+			if (surnameFind.equals(student.getSurname())) {
+				findQuantityPasses.add(student);
+			} else if (passType == 0 && (student.getIll() >= min) && (student.getIll() <= max)) {
+				findQuantityPasses.add(student);
+			} else if (passType == 1 && (student.getOther() >= min) && (student.getOther() <= max)) {
+				findQuantityPasses.add(student);
+			} else if (passType == 2 && (student.getWithout() >= min) && (student.getWithout() <= max)) {
+				findQuantityPasses.add(student);
+			} else if (passType == 3 && (student.getTotal() >= min) && (student.getTotal() <= max)) {
+				findQuantityPasses.add(student);
+			}
+		}
+		return findQuantityPasses;
 	}
 	
 	public List<Student> getStudents(){
